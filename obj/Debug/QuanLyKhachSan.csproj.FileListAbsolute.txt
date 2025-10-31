@@ -1,0 +1,14 @@
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.csproj.AssemblyReference.cache
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.Properties.Resources.resources
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.csproj.GenerateResource.cache
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.csproj.CoreCompileInputs.cache
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\bin\Debug\QuanLyKhachSan.exe.config
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\bin\Debug\QuanLyKhachSan.exe
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\bin\Debug\QuanLyKhachSan.pdb
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\bin\Debug\System.Data.SqlClient.dll
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\bin\Debug\System.Data.SqlClient.xml
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\obj\Debug\QuanLyKh.7BBD220C.Up2Date
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.exe
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.pdb
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.exe.config
+\\vmware-host\Shared Folders\Coding\QuanLyKhachSan\obj\Debug\QuanLyKhachSan.Form1.resources
