@@ -16,6 +16,8 @@ namespace QuanLyKhachSan
         public BookingForm()
         {
             InitializeComponent();
+            txtBookingCode.ReadOnly = true;
+            txtBookingCode.Text = GenerateBookingCode();
         }
 
         public void LoadBookingsData()
@@ -62,8 +64,36 @@ namespace QuanLyKhachSan
             }
         }
 
+        private string GenerateBookingCode()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT TOP 1 MaDat FROM DatPhong ORDER BY MaDat DESC";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    var result = cmd.ExecuteScalar();
+                    
+                    if (result == null)
+                    {
+                        return "DP001";
+                    }
+                    
+                    string lastCode = result.ToString();
+                    int number = int.Parse(lastCode.Substring(2)) + 1;
+                    return "DP" + number.ToString("D3");
+                }
+                catch
+                {
+                    return "DP001";
+                }
+            }
+        }
+
         private void btnAddBooking_Click(object sender, EventArgs e)
         {
+            txtBookingCode.Text = GenerateBookingCode();
             if (string.IsNullOrEmpty(txtBookingCode.Text) || cmbCustomer.SelectedValue == null || cmbRoom.SelectedValue == null)
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -269,6 +299,9 @@ namespace QuanLyKhachSan
         {
             LoadBookingsData();
             ClearBookingForm();
+            txtSearchBooking.Clear();
+            dtpSearchDateFrom.Value = DateTime.Now.AddDays(-30);
+            dtpSearchDateTo.Value = DateTime.Now;
         }
 
         private void dgvBookings_SelectionChanged(object sender, EventArgs e)
@@ -279,13 +312,65 @@ namespace QuanLyKhachSan
         private void ClearBookingForm()
         {
             txtBookingCode.Clear();
-            txtBookingCode.Enabled = true;
+            txtBookingCode.ReadOnly = true;
             cmbCustomer.SelectedIndex = -1;
             cmbRoom.SelectedIndex = -1;
             dtpCheckIn.Value = DateTime.Now;
             dtpCheckOut.Value = DateTime.Now.AddDays(1);
             isEditing = false;
             currentEditingId = "";
+        }
+
+        private void btnSearchBooking_Click(object sender, EventArgs e)
+        {
+            string keyword = txtSearchBooking.Text.Trim();
+            DateTime dateFrom = dtpSearchDateFrom.Value.Date;
+            DateTime dateTo = dtpSearchDateTo.Value.Date;
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = @"SELECT D.MaDat, K.HoTen, P.MaPhong, D.NgayDat, D.NgayTra, N.Ho + ' ' + N.Ten as NhanVien
+                                    FROM DatPhong D
+                                    INNER JOIN KhachHang K ON D.MaKH = K.MaKH
+                                    INNER JOIN Phong P ON D.MaPhong = P.MaPhong
+                                    INNER JOIN NhanVien N ON D.MaNV = N.MaNV
+                                    WHERE D.TrangThai = 'active'
+                                    AND D.NgayDat >= @DateFrom AND D.NgayDat <= @DateTo";
+
+                    if (!string.IsNullOrEmpty(keyword))
+                    {
+                        query += " AND (D.MaDat LIKE @Keyword OR K.HoTen LIKE @Keyword OR P.MaPhong LIKE @Keyword)";
+                    }
+
+                    query += " ORDER BY D.NgayDat DESC";
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@DateFrom", dateFrom);
+                    cmd.Parameters.AddWithValue("@DateTo", dateTo);
+                    
+                    if (!string.IsNullOrEmpty(keyword))
+                    {
+                        cmd.Parameters.AddWithValue("@Keyword", "%" + keyword + "%");
+                    }
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    dgvBookings.DataSource = dt;
+
+                    if (dt.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Không tìm thấy đặt phòng nào phù hợp!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi tìm kiếm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

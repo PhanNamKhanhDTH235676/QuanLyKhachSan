@@ -14,6 +14,8 @@ namespace QuanLyKhachSan
         public EmployeeForm()
         {
             InitializeComponent();
+            txtEmployeeCode.ReadOnly = true;
+            txtEmployeeCode.Text = GenerateEmployeeCode();
         }
 
         public void LoadEmployeesData()
@@ -36,6 +38,33 @@ namespace QuanLyKhachSan
             }
         }
 
+        private string GenerateEmployeeCode()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT TOP 1 MaNV FROM NhanVien ORDER BY MaNV DESC";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    var result = cmd.ExecuteScalar();
+                    
+                    if (result == null)
+                    {
+                        return "NV001";
+                    }
+                    
+                    string lastCode = result.ToString();
+                    int number = int.Parse(lastCode.Substring(2)) + 1;
+                    return "NV" + number.ToString("D3");
+                }
+                catch
+                {
+                    return "NV001";
+                }
+            }
+        }
+
         public void UpdateButtonAccess(bool isManager)
         {
             btnAddEmployee.Enabled = isManager;
@@ -45,6 +74,7 @@ namespace QuanLyKhachSan
 
         private void btnAddEmployee_Click(object sender, EventArgs e)
         {
+            txtEmployeeCode.Text = GenerateEmployeeCode();
             if (string.IsNullOrEmpty(txtEmployeeCode.Text) || string.IsNullOrEmpty(txtFirstName.Text) || 
                 string.IsNullOrEmpty(txtLastName.Text) || string.IsNullOrEmpty(txtEmailEmp.Text) || 
                 string.IsNullOrEmpty(txtPasswordEmp.Text))
@@ -238,7 +268,7 @@ namespace QuanLyKhachSan
         private void ClearEmployeeForm()
         {
             txtEmployeeCode.Clear();
-            txtEmployeeCode.Enabled = true;
+            txtEmployeeCode.ReadOnly = true;
             txtLastName.Clear();
             txtFirstName.Clear();
             rdbMale.Checked = true;
@@ -248,6 +278,57 @@ namespace QuanLyKhachSan
             txtPasswordEmp.Clear();
             isEditing = false;
             currentEditingId = "";
+        }
+
+        private void btnSearchEmployee_Click(object sender, EventArgs e)
+        {
+            string keyword = txtSearchEmployee.Text.Trim();
+            string position = cmbSearchPosition.SelectedItem?.ToString();
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT MaNV, Ho, Ten, GioiTinh, NgaySinh, ChucVu, Email FROM NhanVien WHERE TrangThai = 'active'";
+
+                    if (!string.IsNullOrEmpty(keyword))
+                    {
+                        query += " AND (MaNV LIKE @Keyword OR Ho LIKE @Keyword OR Ten LIKE @Keyword OR Email LIKE @Keyword)";
+                    }
+
+                    if (!string.IsNullOrEmpty(position) && position != "Tất cả")
+                    {
+                        query += " AND ChucVu = @ChucVu";
+                    }
+
+                    query += " ORDER BY MaNV";
+
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    if (!string.IsNullOrEmpty(keyword))
+                    {
+                        cmd.Parameters.AddWithValue("@Keyword", "%" + keyword + "%");
+                    }
+                    if (!string.IsNullOrEmpty(position) && position != "Tất cả")
+                    {
+                        cmd.Parameters.AddWithValue("@ChucVu", position);
+                    }
+
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    dgvEmployees.DataSource = dt;
+
+                    if (dt.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Không tìm thấy nhân viên nào phù hợp!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi tìm kiếm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

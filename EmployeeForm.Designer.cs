@@ -41,9 +41,16 @@ namespace QuanLyKhachSan
             this.lblLastName = new System.Windows.Forms.Label();
             this.lblFirstName = new System.Windows.Forms.Label();
             this.lblEmployeeCode = new System.Windows.Forms.Label();
+            this.grpSearch = new System.Windows.Forms.GroupBox();
+            this.btnSearchEmployee = new System.Windows.Forms.Button();
+            this.cmbSearchPosition = new System.Windows.Forms.ComboBox();
+            this.txtSearchEmployee = new System.Windows.Forms.TextBox();
+            this.lblSearchPosition = new System.Windows.Forms.Label();
+            this.lblSearchKeyword = new System.Windows.Forms.Label();
             this.panelEmployeeButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).BeginInit();
             this.grpEmployeeInfo.SuspendLayout();
+            this.grpSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelEmployeeButtons
@@ -131,10 +138,10 @@ namespace QuanLyKhachSan
             this.dgvEmployees.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvEmployees.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEmployees.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvEmployees.Location = new System.Drawing.Point(0, 148);
+            this.dgvEmployees.Location = new System.Drawing.Point(0, 208);
             this.dgvEmployees.Name = "dgvEmployees";
             this.dgvEmployees.ReadOnly = true;
-            this.dgvEmployees.Size = new System.Drawing.Size(970, 397);
+            this.dgvEmployees.Size = new System.Drawing.Size(970, 337);
             this.dgvEmployees.TabIndex = 1;
             this.dgvEmployees.SelectionChanged += new System.EventHandler(this.dgvEmployees_SelectionChanged);
             // 
@@ -315,11 +322,78 @@ namespace QuanLyKhachSan
             this.lblEmployeeCode.TabIndex = 0;
             this.lblEmployeeCode.Text = "Mã số:";
             // 
+            // grpSearch
+            // 
+            this.grpSearch.Controls.Add(this.btnSearchEmployee);
+            this.grpSearch.Controls.Add(this.cmbSearchPosition);
+            this.grpSearch.Controls.Add(this.txtSearchEmployee);
+            this.grpSearch.Controls.Add(this.lblSearchPosition);
+            this.grpSearch.Controls.Add(this.lblSearchKeyword);
+            this.grpSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpSearch.Location = new System.Drawing.Point(0, 148);
+            this.grpSearch.Name = "grpSearch";
+            this.grpSearch.Size = new System.Drawing.Size(970, 60);
+            this.grpSearch.TabIndex = 3;
+            this.grpSearch.TabStop = false;
+            this.grpSearch.Text = "Tìm kiếm & Lọc";
+            // 
+            // btnSearchEmployee
+            // 
+            this.btnSearchEmployee.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnSearchEmployee.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearchEmployee.ForeColor = System.Drawing.Color.White;
+            this.btnSearchEmployee.Location = new System.Drawing.Point(680, 22);
+            this.btnSearchEmployee.Name = "btnSearchEmployee";
+            this.btnSearchEmployee.Size = new System.Drawing.Size(80, 25);
+            this.btnSearchEmployee.TabIndex = 4;
+            this.btnSearchEmployee.Text = "Tìm kiếm";
+            this.btnSearchEmployee.UseVisualStyleBackColor = false;
+            this.btnSearchEmployee.Click += new System.EventHandler(this.btnSearchEmployee_Click);
+            // 
+            // cmbSearchPosition
+            // 
+            this.cmbSearchPosition.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbSearchPosition.FormattingEnabled = true;
+            this.cmbSearchPosition.Items.AddRange(new object[] {
+            "Tất cả",
+            "truong phong",
+            "nhan vien"});
+            this.cmbSearchPosition.Location = new System.Drawing.Point(480, 24);
+            this.cmbSearchPosition.Name = "cmbSearchPosition";
+            this.cmbSearchPosition.Size = new System.Drawing.Size(150, 21);
+            this.cmbSearchPosition.TabIndex = 3;
+            // 
+            // txtSearchEmployee
+            // 
+            this.txtSearchEmployee.Location = new System.Drawing.Point(100, 25);
+            this.txtSearchEmployee.Name = "txtSearchEmployee";
+            this.txtSearchEmployee.Size = new System.Drawing.Size(250, 20);
+            this.txtSearchEmployee.TabIndex = 2;
+            // 
+            // lblSearchPosition
+            // 
+            this.lblSearchPosition.AutoSize = true;
+            this.lblSearchPosition.Location = new System.Drawing.Point(400, 27);
+            this.lblSearchPosition.Name = "lblSearchPosition";
+            this.lblSearchPosition.Size = new System.Drawing.Size(50, 13);
+            this.lblSearchPosition.TabIndex = 1;
+            this.lblSearchPosition.Text = "Chức vụ:";
+            // 
+            // lblSearchKeyword
+            // 
+            this.lblSearchKeyword.AutoSize = true;
+            this.lblSearchKeyword.Location = new System.Drawing.Point(20, 28);
+            this.lblSearchKeyword.Name = "lblSearchKeyword";
+            this.lblSearchKeyword.Size = new System.Drawing.Size(53, 13);
+            this.lblSearchKeyword.TabIndex = 0;
+            this.lblSearchKeyword.Text = "Từ khóa:";
+            // 
             // EmployeeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dgvEmployees);
+            this.Controls.Add(this.grpSearch);
             this.Controls.Add(this.panelEmployeeButtons);
             this.Controls.Add(this.grpEmployeeInfo);
             this.Name = "EmployeeForm";
@@ -328,6 +402,8 @@ namespace QuanLyKhachSan
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployees)).EndInit();
             this.grpEmployeeInfo.ResumeLayout(false);
             this.grpEmployeeInfo.PerformLayout();
+            this.grpSearch.ResumeLayout(false);
+            this.grpSearch.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -341,6 +417,12 @@ namespace QuanLyKhachSan
         private System.Windows.Forms.Button btnAddEmployee;
         private System.Windows.Forms.DataGridView dgvEmployees;
         private System.Windows.Forms.GroupBox grpEmployeeInfo;
+        private System.Windows.Forms.GroupBox grpSearch;
+        private System.Windows.Forms.Button btnSearchEmployee;
+        private System.Windows.Forms.ComboBox cmbSearchPosition;
+        private System.Windows.Forms.TextBox txtSearchEmployee;
+        private System.Windows.Forms.Label lblSearchPosition;
+        private System.Windows.Forms.Label lblSearchKeyword;
         private System.Windows.Forms.TextBox txtPasswordEmp;
         private System.Windows.Forms.Label lblPasswordEmp;
         private System.Windows.Forms.TextBox txtEmailEmp;

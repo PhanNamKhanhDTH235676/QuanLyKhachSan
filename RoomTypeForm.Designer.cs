@@ -32,9 +32,14 @@ namespace QuanLyKhachSan
             this.lblPrice = new System.Windows.Forms.Label();
             this.lblRoomTypeName = new System.Windows.Forms.Label();
             this.lblRoomTypeCode = new System.Windows.Forms.Label();
+            this.grpSearch = new System.Windows.Forms.GroupBox();
+            this.btnSearchRoomType = new System.Windows.Forms.Button();
+            this.txtSearchRoomType = new System.Windows.Forms.TextBox();
+            this.lblSearchKeyword = new System.Windows.Forms.Label();
             this.panelButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoomTypes)).BeginInit();
             this.grpRoomTypeInfo.SuspendLayout();
+            this.grpSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelButtons
@@ -122,10 +127,10 @@ namespace QuanLyKhachSan
             this.dgvRoomTypes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRoomTypes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRoomTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRoomTypes.Location = new System.Drawing.Point(0, 118);
+            this.dgvRoomTypes.Location = new System.Drawing.Point(0, 178);
             this.dgvRoomTypes.Name = "dgvRoomTypes";
             this.dgvRoomTypes.ReadOnly = true;
-            this.dgvRoomTypes.Size = new System.Drawing.Size(970, 427);
+            this.dgvRoomTypes.Size = new System.Drawing.Size(970, 367);
             this.dgvRoomTypes.TabIndex = 1;
             this.dgvRoomTypes.SelectionChanged += new System.EventHandler(this.dgvRoomTypes_SelectionChanged);
             // 
@@ -212,11 +217,54 @@ namespace QuanLyKhachSan
             this.lblRoomTypeCode.TabIndex = 0;
             this.lblRoomTypeCode.Text = "Mã loại:";
             // 
+            // grpSearch
+            // 
+            this.grpSearch.Controls.Add(this.btnSearchRoomType);
+            this.grpSearch.Controls.Add(this.txtSearchRoomType);
+            this.grpSearch.Controls.Add(this.lblSearchKeyword);
+            this.grpSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpSearch.Location = new System.Drawing.Point(0, 118);
+            this.grpSearch.Name = "grpSearch";
+            this.grpSearch.Size = new System.Drawing.Size(970, 60);
+            this.grpSearch.TabIndex = 3;
+            this.grpSearch.TabStop = false;
+            this.grpSearch.Text = "Tìm kiếm";
+            // 
+            // btnSearchRoomType
+            // 
+            this.btnSearchRoomType.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnSearchRoomType.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearchRoomType.ForeColor = System.Drawing.Color.White;
+            this.btnSearchRoomType.Location = new System.Drawing.Point(380, 22);
+            this.btnSearchRoomType.Name = "btnSearchRoomType";
+            this.btnSearchRoomType.Size = new System.Drawing.Size(80, 25);
+            this.btnSearchRoomType.TabIndex = 2;
+            this.btnSearchRoomType.Text = "Tìm kiếm";
+            this.btnSearchRoomType.UseVisualStyleBackColor = false;
+            this.btnSearchRoomType.Click += new System.EventHandler(this.btnSearchRoomType_Click);
+            // 
+            // txtSearchRoomType
+            // 
+            this.txtSearchRoomType.Location = new System.Drawing.Point(100, 24);
+            this.txtSearchRoomType.Name = "txtSearchRoomType";
+            this.txtSearchRoomType.Size = new System.Drawing.Size(250, 20);
+            this.txtSearchRoomType.TabIndex = 1;
+            // 
+            // lblSearchKeyword
+            // 
+            this.lblSearchKeyword.AutoSize = true;
+            this.lblSearchKeyword.Location = new System.Drawing.Point(20, 27);
+            this.lblSearchKeyword.Name = "lblSearchKeyword";
+            this.lblSearchKeyword.Size = new System.Drawing.Size(53, 13);
+            this.lblSearchKeyword.TabIndex = 0;
+            this.lblSearchKeyword.Text = "Từ khóa:";
+            // 
             // RoomTypeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dgvRoomTypes);
+            this.Controls.Add(this.grpSearch);
             this.Controls.Add(this.panelButtons);
             this.Controls.Add(this.grpRoomTypeInfo);
             this.Name = "RoomTypeForm";
@@ -225,6 +273,8 @@ namespace QuanLyKhachSan
             ((System.ComponentModel.ISupportInitialize)(this.dgvRoomTypes)).EndInit();
             this.grpRoomTypeInfo.ResumeLayout(false);
             this.grpRoomTypeInfo.PerformLayout();
+            this.grpSearch.ResumeLayout(false);
+            this.grpSearch.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -246,5 +296,9 @@ namespace QuanLyKhachSan
         private System.Windows.Forms.Label lblPrice;
         private System.Windows.Forms.Label lblRoomTypeName;
         private System.Windows.Forms.Label lblRoomTypeCode;
+        private System.Windows.Forms.GroupBox grpSearch;
+        private System.Windows.Forms.Button btnSearchRoomType;
+        private System.Windows.Forms.TextBox txtSearchRoomType;
+        private System.Windows.Forms.Label lblSearchKeyword;
     }
 }

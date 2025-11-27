@@ -36,9 +36,18 @@ namespace QuanLyKhachSan
             this.lblRoom = new System.Windows.Forms.Label();
             this.lblCustomer = new System.Windows.Forms.Label();
             this.lblBookingCode = new System.Windows.Forms.Label();
+            this.grpSearch = new System.Windows.Forms.GroupBox();
+            this.btnSearchBooking = new System.Windows.Forms.Button();
+            this.dtpSearchDateTo = new System.Windows.Forms.DateTimePicker();
+            this.dtpSearchDateFrom = new System.Windows.Forms.DateTimePicker();
+            this.txtSearchBooking = new System.Windows.Forms.TextBox();
+            this.lblSearchDateTo = new System.Windows.Forms.Label();
+            this.lblSearchDateFrom = new System.Windows.Forms.Label();
+            this.lblSearchKeyword = new System.Windows.Forms.Label();
             this.panelBookingButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBookings)).BeginInit();
             this.grpBookingInfo.SuspendLayout();
+            this.grpSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelBookingButtons
@@ -126,10 +135,10 @@ namespace QuanLyKhachSan
             this.dgvBookings.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvBookings.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBookings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvBookings.Location = new System.Drawing.Point(0, 148);
+            this.dgvBookings.Location = new System.Drawing.Point(0, 218);
             this.dgvBookings.Name = "dgvBookings";
             this.dgvBookings.ReadOnly = true;
-            this.dgvBookings.Size = new System.Drawing.Size(970, 397);
+            this.dgvBookings.Size = new System.Drawing.Size(970, 327);
             this.dgvBookings.TabIndex = 1;
             this.dgvBookings.SelectionChanged += new System.EventHandler(this.dgvBookings_SelectionChanged);
             // 
@@ -260,11 +269,92 @@ namespace QuanLyKhachSan
             this.lblBookingCode.TabIndex = 0;
             this.lblBookingCode.Text = "Mã đặt:";
             // 
+            // grpSearch
+            // 
+            this.grpSearch.Controls.Add(this.btnSearchBooking);
+            this.grpSearch.Controls.Add(this.dtpSearchDateTo);
+            this.grpSearch.Controls.Add(this.dtpSearchDateFrom);
+            this.grpSearch.Controls.Add(this.txtSearchBooking);
+            this.grpSearch.Controls.Add(this.lblSearchDateTo);
+            this.grpSearch.Controls.Add(this.lblSearchDateFrom);
+            this.grpSearch.Controls.Add(this.lblSearchKeyword);
+            this.grpSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpSearch.Location = new System.Drawing.Point(0, 148);
+            this.grpSearch.Name = "grpSearch";
+            this.grpSearch.Size = new System.Drawing.Size(970, 70);
+            this.grpSearch.TabIndex = 3;
+            this.grpSearch.TabStop = false;
+            this.grpSearch.Text = "Tìm kiếm";
+            // 
+            // btnSearchBooking
+            // 
+            this.btnSearchBooking.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnSearchBooking.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearchBooking.ForeColor = System.Drawing.Color.White;
+            this.btnSearchBooking.Location = new System.Drawing.Point(780, 30);
+            this.btnSearchBooking.Name = "btnSearchBooking";
+            this.btnSearchBooking.Size = new System.Drawing.Size(80, 25);
+            this.btnSearchBooking.TabIndex = 6;
+            this.btnSearchBooking.Text = "Tìm kiếm";
+            this.btnSearchBooking.UseVisualStyleBackColor = false;
+            this.btnSearchBooking.Click += new System.EventHandler(this.btnSearchBooking_Click);
+            // 
+            // dtpSearchDateTo
+            // 
+            this.dtpSearchDateTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpSearchDateTo.Location = new System.Drawing.Point(600, 33);
+            this.dtpSearchDateTo.Name = "dtpSearchDateTo";
+            this.dtpSearchDateTo.Size = new System.Drawing.Size(120, 20);
+            this.dtpSearchDateTo.TabIndex = 5;
+            // 
+            // dtpSearchDateFrom
+            // 
+            this.dtpSearchDateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpSearchDateFrom.Location = new System.Drawing.Point(380, 33);
+            this.dtpSearchDateFrom.Name = "dtpSearchDateFrom";
+            this.dtpSearchDateFrom.Size = new System.Drawing.Size(120, 20);
+            this.dtpSearchDateFrom.TabIndex = 4;
+            // 
+            // txtSearchBooking
+            // 
+            this.txtSearchBooking.Location = new System.Drawing.Point(100, 34);
+            this.txtSearchBooking.Name = "txtSearchBooking";
+            this.txtSearchBooking.Size = new System.Drawing.Size(180, 20);
+            this.txtSearchBooking.TabIndex = 3;
+            // 
+            // lblSearchDateTo
+            // 
+            this.lblSearchDateTo.AutoSize = true;
+            this.lblSearchDateTo.Location = new System.Drawing.Point(530, 36);
+            this.lblSearchDateTo.Name = "lblSearchDateTo";
+            this.lblSearchDateTo.Size = new System.Drawing.Size(56, 13);
+            this.lblSearchDateTo.TabIndex = 2;
+            this.lblSearchDateTo.Text = "Đến ngày:";
+            // 
+            // lblSearchDateFrom
+            // 
+            this.lblSearchDateFrom.AutoSize = true;
+            this.lblSearchDateFrom.Location = new System.Drawing.Point(310, 36);
+            this.lblSearchDateFrom.Name = "lblSearchDateFrom";
+            this.lblSearchDateFrom.Size = new System.Drawing.Size(49, 13);
+            this.lblSearchDateFrom.TabIndex = 1;
+            this.lblSearchDateFrom.Text = "Từ ngày:";
+            // 
+            // lblSearchKeyword
+            // 
+            this.lblSearchKeyword.AutoSize = true;
+            this.lblSearchKeyword.Location = new System.Drawing.Point(20, 37);
+            this.lblSearchKeyword.Name = "lblSearchKeyword";
+            this.lblSearchKeyword.Size = new System.Drawing.Size(53, 13);
+            this.lblSearchKeyword.TabIndex = 0;
+            this.lblSearchKeyword.Text = "Từ khóa:";
+            // 
             // BookingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dgvBookings);
+            this.Controls.Add(this.grpSearch);
             this.Controls.Add(this.panelBookingButtons);
             this.Controls.Add(this.grpBookingInfo);
             this.Name = "BookingForm";
@@ -273,6 +363,8 @@ namespace QuanLyKhachSan
             ((System.ComponentModel.ISupportInitialize)(this.dgvBookings)).EndInit();
             this.grpBookingInfo.ResumeLayout(false);
             this.grpBookingInfo.PerformLayout();
+            this.grpSearch.ResumeLayout(false);
+            this.grpSearch.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -286,6 +378,14 @@ namespace QuanLyKhachSan
         private System.Windows.Forms.Button btnAddBooking;
         private System.Windows.Forms.DataGridView dgvBookings;
         private System.Windows.Forms.GroupBox grpBookingInfo;
+        private System.Windows.Forms.GroupBox grpSearch;
+        private System.Windows.Forms.Button btnSearchBooking;
+        private System.Windows.Forms.DateTimePicker dtpSearchDateTo;
+        private System.Windows.Forms.DateTimePicker dtpSearchDateFrom;
+        private System.Windows.Forms.TextBox txtSearchBooking;
+        private System.Windows.Forms.Label lblSearchDateTo;
+        private System.Windows.Forms.Label lblSearchDateFrom;
+        private System.Windows.Forms.Label lblSearchKeyword;
         private System.Windows.Forms.Label lblCurrentEmployee;
         private System.Windows.Forms.Label lblEmployeeLabel;
         private System.Windows.Forms.DateTimePicker dtpCheckOut;

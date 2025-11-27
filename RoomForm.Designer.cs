@@ -129,10 +129,10 @@ namespace QuanLyKhachSan
             this.dgvRooms.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvRooms.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvRooms.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvRooms.Location = new System.Drawing.Point(0, 148);
+            this.dgvRooms.Location = new System.Drawing.Point(0, 158);
             this.dgvRooms.Name = "dgvRooms";
             this.dgvRooms.ReadOnly = true;
-            this.dgvRooms.Size = new System.Drawing.Size(970, 397);
+            this.dgvRooms.Size = new System.Drawing.Size(970, 387);
             this.dgvRooms.TabIndex = 2;
             this.dgvRooms.SelectionChanged += new System.EventHandler(this.dgvRooms_SelectionChanged);
             // 
@@ -250,26 +250,26 @@ namespace QuanLyKhachSan
             this.lblRoomCode.Size = new System.Drawing.Size(55, 13);
             this.lblRoomCode.TabIndex = 0;
             this.lblRoomCode.Text = "Mã phòng:";
-            // 
+            //
             // grpSearch
-            // 
+            //
             this.grpSearch.Controls.Add(this.btnSearchRoom);
             this.grpSearch.Controls.Add(this.txtSearchRoom);
             this.grpSearch.Controls.Add(this.lblSearch);
             this.grpSearch.Dock = System.Windows.Forms.DockStyle.Top;
             this.grpSearch.Location = new System.Drawing.Point(0, 98);
             this.grpSearch.Name = "grpSearch";
-            this.grpSearch.Size = new System.Drawing.Size(970, 50);
+            this.grpSearch.Size = new System.Drawing.Size(970, 60);
             this.grpSearch.TabIndex = 1;
             this.grpSearch.TabStop = false;
-            this.grpSearch.Text = "Tìm kiếm phòng";
+            this.grpSearch.Text = "Tìm kiếm";
             // 
             // btnSearchRoom
             // 
             this.btnSearchRoom.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
             this.btnSearchRoom.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearchRoom.ForeColor = System.Drawing.Color.White;
-            this.btnSearchRoom.Location = new System.Drawing.Point(380, 15);
+            this.btnSearchRoom.Location = new System.Drawing.Point(380, 22);
             this.btnSearchRoom.Name = "btnSearchRoom";
             this.btnSearchRoom.Size = new System.Drawing.Size(80, 25);
             this.btnSearchRoom.TabIndex = 2;
@@ -279,7 +279,7 @@ namespace QuanLyKhachSan
             // 
             // txtSearchRoom
             // 
-            this.txtSearchRoom.Location = new System.Drawing.Point(100, 17);
+            this.txtSearchRoom.Location = new System.Drawing.Point(100, 24);
             this.txtSearchRoom.Name = "txtSearchRoom";
             this.txtSearchRoom.Size = new System.Drawing.Size(250, 20);
             this.txtSearchRoom.TabIndex = 1;
@@ -287,7 +287,7 @@ namespace QuanLyKhachSan
             // lblSearch
             // 
             this.lblSearch.AutoSize = true;
-            this.lblSearch.Location = new System.Drawing.Point(20, 20);
+            this.lblSearch.Location = new System.Drawing.Point(20, 27);
             this.lblSearch.Name = "lblSearch";
             this.lblSearch.Size = new System.Drawing.Size(53, 13);
             this.lblSearch.TabIndex = 0;

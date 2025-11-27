@@ -47,12 +47,6 @@ namespace QuanLyKhachSan
 
             // tabControl1
             this.tabControl1.Controls.Add(this.tabLogin);
-            this.tabControl1.Controls.Add(this.tabEmployees);
-            this.tabControl1.Controls.Add(this.tabCustomers);
-            this.tabControl1.Controls.Add(this.tabRoomTypes);
-            this.tabControl1.Controls.Add(this.tabRooms);
-            this.tabControl1.Controls.Add(this.tabBookings);
-            this.tabControl1.Controls.Add(this.tabPayment);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";

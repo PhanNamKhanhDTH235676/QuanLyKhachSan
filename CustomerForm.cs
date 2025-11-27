@@ -14,6 +14,8 @@ namespace QuanLyKhachSan
         public CustomerForm()
         {
             InitializeComponent();
+            txtCustomerCode.ReadOnly = true;
+            txtCustomerCode.Text = GenerateCustomerCode();
         }
 
         public void LoadCustomersData()
@@ -36,8 +38,36 @@ namespace QuanLyKhachSan
             }
         }
 
+        private string GenerateCustomerCode()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT TOP 1 MaKH FROM KhachHang ORDER BY MaKH DESC";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    var result = cmd.ExecuteScalar();
+                    
+                    if (result == null)
+                    {
+                        return "KH001";
+                    }
+                    
+                    string lastCode = result.ToString();
+                    int number = int.Parse(lastCode.Substring(2)) + 1;
+                    return "KH" + number.ToString("D3");
+                }
+                catch
+                {
+                    return "KH001";
+                }
+            }
+        }
+
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
+            txtCustomerCode.Text = GenerateCustomerCode();
             if (string.IsNullOrEmpty(txtCustomerCode.Text) || string.IsNullOrEmpty(txtCustomerName.Text))
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -214,12 +244,54 @@ namespace QuanLyKhachSan
         private void ClearCustomerForm()
         {
             txtCustomerCode.Clear();
-            txtCustomerCode.Enabled = true;
+            txtCustomerCode.ReadOnly = true;
             txtCustomerName.Clear();
             txtPhone.Clear();
             txtCMND.Clear();
             isEditing = false;
             currentEditingId = "";
+        }
+
+        private void btnSearchCustomer_Click(object sender, EventArgs e)
+        {
+            string keyword = txtSearchCustomer.Text.Trim();
+            
+            if (string.IsNullOrEmpty(keyword))
+            {
+                LoadCustomersData();
+                return;
+            }
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = @"SELECT * FROM KhachHang 
+                                   WHERE MaKH LIKE @Keyword 
+                                      OR HoTen LIKE @Keyword 
+                                      OR SDT LIKE @Keyword 
+                                      OR CMND LIKE @Keyword
+                                   ORDER BY MaKH";
+                    
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Keyword", "%" + keyword + "%");
+                    
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    dgvCustomers.DataSource = dt;
+
+                    if (dt.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Không tìm thấy khách hàng nào phù hợp!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi tìm kiếm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }

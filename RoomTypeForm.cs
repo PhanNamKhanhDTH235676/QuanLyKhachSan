@@ -14,6 +14,8 @@ namespace QuanLyKhachSan
         public RoomTypeForm()
         {
             InitializeComponent();
+            txtRoomTypeCode.ReadOnly = true;
+            txtRoomTypeCode.Text = GenerateRoomTypeCode();
         }
 
         public void LoadRoomTypesData()
@@ -49,6 +51,33 @@ namespace QuanLyKhachSan
             }
         }
 
+        private string GenerateRoomTypeCode()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT TOP 1 MaLoai FROM LoaiPhong ORDER BY MaLoai DESC";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    var result = cmd.ExecuteScalar();
+                    
+                    if (result == null)
+                    {
+                        return "LP001";
+                    }
+                    
+                    string lastCode = result.ToString();
+                    int number = int.Parse(lastCode.Substring(2)) + 1;
+                    return "LP" + number.ToString("D3");
+                }
+                catch
+                {
+                    return "LP001";
+                }
+            }
+        }
+
         public void UpdateButtonAccess(bool isManager)
         {
             btnAddRoomType.Enabled = isManager;
@@ -58,6 +87,7 @@ namespace QuanLyKhachSan
 
         private void btnAddRoomType_Click(object sender, EventArgs e)
         {
+            txtRoomTypeCode.Text = GenerateRoomTypeCode();
             if (string.IsNullOrEmpty(txtRoomTypeCode.Text) || string.IsNullOrEmpty(txtRoomTypeName.Text) ||
                 string.IsNullOrEmpty(txtPrice.Text))
             {
@@ -241,6 +271,7 @@ namespace QuanLyKhachSan
         {
             LoadRoomTypesData();
             ClearForm();
+            txtSearchRoomType.Clear();
         }
 
         private void dgvRoomTypes_SelectionChanged(object sender, EventArgs e)
@@ -251,12 +282,59 @@ namespace QuanLyKhachSan
         private void ClearForm()
         {
             txtRoomTypeCode.Clear();
-            txtRoomTypeCode.Enabled = true;
+            txtRoomTypeCode.ReadOnly = true;
             txtRoomTypeName.Clear();
             txtPrice.Clear();
             txtDescription.Clear();
             isEditing = false;
             currentEditingId = "";
         }
+
+        private void btnSearchRoomType_Click(object sender, EventArgs e)
+        {
+            string keyword = txtSearchRoomType.Text.Trim();
+            
+            if (string.IsNullOrEmpty(keyword))
+            {
+                LoadRoomTypesData();
+                return;
+            }
+
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = @"SELECT MaLoai, TenLoai, GiaTien, MoTa FROM LoaiPhong 
+                                   WHERE MaLoai LIKE @Keyword 
+                                      OR TenLoai LIKE @Keyword 
+                                      OR MoTa LIKE @Keyword
+                                   ORDER BY MaLoai";
+                    
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    cmd.Parameters.AddWithValue("@Keyword", "%" + keyword + "%");
+                    
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    dgvRoomTypes.DataSource = dt;
+
+                    if (dgvRoomTypes.Columns["GiaTien"] != null)
+                    {
+                        dgvRoomTypes.Columns["GiaTien"].DefaultCellStyle.Format = "N0";
+                    }
+
+                    if (dt.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Không tìm thấy loại phòng nào phù hợp!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi tìm kiếm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
+    
 }

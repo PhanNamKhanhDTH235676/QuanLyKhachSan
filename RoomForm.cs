@@ -15,6 +15,8 @@ namespace QuanLyKhachSan
         {
             InitializeComponent();
             LoadComboBoxData();
+            txtRoomCode.ReadOnly = true;
+            txtRoomCode.Text = GenerateRoomCode();
         }
 
         private void LoadComboBoxData()
@@ -36,6 +38,33 @@ namespace QuanLyKhachSan
                 catch (Exception ex)
                 {
                     MessageBox.Show("Lỗi load loại phòng: " + ex.Message);
+                }
+            }
+        }
+
+        private string GenerateRoomCode()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT TOP 1 MaPhong FROM Phong ORDER BY MaPhong DESC";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    var result = cmd.ExecuteScalar();
+                    
+                    if (result == null)
+                    {
+                        return "P101";
+                    }
+                    
+                    string lastCode = result.ToString();
+                    int number = int.Parse(lastCode.Substring(1)) + 1;
+                    return "P" + number.ToString("D3");
+                }
+                catch
+                {
+                    return "P101";
                 }
             }
         }
@@ -78,6 +107,7 @@ namespace QuanLyKhachSan
 
         private void btnAddRoom_Click(object sender, EventArgs e)
         {
+            txtRoomCode.Text = GenerateRoomCode();
             if (string.IsNullOrEmpty(txtRoomCode.Text) || cmbRoomType.SelectedValue == null)
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -325,7 +355,7 @@ namespace QuanLyKhachSan
         private void ClearRoomForm()
         {
             txtRoomCode.Clear();
-            txtRoomCode.Enabled = true;
+            txtRoomCode.ReadOnly = true;
             cmbRoomType.SelectedIndex = -1;
             cmbStatus.SelectedIndex = -1;
             txtNote.Clear();

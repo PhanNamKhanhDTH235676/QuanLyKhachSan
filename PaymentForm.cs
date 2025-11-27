@@ -14,6 +14,8 @@ namespace QuanLyKhachSan
             InitializeComponent();
             LoadPaymentData();
             LoadBookingComboBox();
+            txtPaymentCode.ReadOnly = true;
+            txtPaymentCode.Text = GeneratePaymentCode();
         }
 
         private void LoadBookingComboBox()
@@ -43,6 +45,33 @@ namespace QuanLyKhachSan
                 catch (Exception ex)
                 {
                     MessageBox.Show("Lỗi load danh sách đặt phòng: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private string GeneratePaymentCode()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    string query = "SELECT TOP 1 MaThanhToan FROM ThanhToan ORDER BY MaThanhToan DESC";
+                    SqlCommand cmd = new SqlCommand(query, connection);
+                    var result = cmd.ExecuteScalar();
+                    
+                    if (result == null)
+                    {
+                        return "TT001";
+                    }
+                    
+                    string lastCode = result.ToString();
+                    int number = int.Parse(lastCode.Substring(2)) + 1;
+                    return "TT" + number.ToString("D3");
+                }
+                catch
+                {
+                    return "TT001";
                 }
             }
         }
@@ -130,6 +159,7 @@ namespace QuanLyKhachSan
 
         private void btnAddPayment_Click(object sender, EventArgs e)
         {
+            txtPaymentCode.Text = GeneratePaymentCode();
             if (string.IsNullOrEmpty(txtPaymentCode.Text) || cmbBookingCode.SelectedValue == null)
             {
                 MessageBox.Show("Vui lòng điền đầy đủ thông tin!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -226,6 +256,7 @@ namespace QuanLyKhachSan
         private void ClearForm()
         {
             txtPaymentCode.Clear();
+            txtPaymentCode.ReadOnly = true;
             cmbBookingCode.SelectedIndex = -1;
             txtCustomerName.Clear();
             txtRoomCode.Clear();

@@ -32,9 +32,14 @@ namespace QuanLyKhachSan
             this.lblPhone = new System.Windows.Forms.Label();
             this.lblCustomerName = new System.Windows.Forms.Label();
             this.lblCustomerCode = new System.Windows.Forms.Label();
+            this.grpSearch = new System.Windows.Forms.GroupBox();
+            this.btnSearchCustomer = new System.Windows.Forms.Button();
+            this.txtSearchCustomer = new System.Windows.Forms.TextBox();
+            this.lblSearchKeyword = new System.Windows.Forms.Label();
             this.panelCustomerButtons.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).BeginInit();
             this.grpCustomerInfo.SuspendLayout();
+            this.grpSearch.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelCustomerButtons
@@ -122,10 +127,10 @@ namespace QuanLyKhachSan
             this.dgvCustomers.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvCustomers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCustomers.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvCustomers.Location = new System.Drawing.Point(0, 98);
+            this.dgvCustomers.Location = new System.Drawing.Point(0, 158);
             this.dgvCustomers.Name = "dgvCustomers";
             this.dgvCustomers.ReadOnly = true;
-            this.dgvCustomers.Size = new System.Drawing.Size(970, 447);
+            this.dgvCustomers.Size = new System.Drawing.Size(970, 387);
             this.dgvCustomers.TabIndex = 1;
             this.dgvCustomers.SelectionChanged += new System.EventHandler(this.dgvCustomers_SelectionChanged);
             // 
@@ -211,11 +216,54 @@ namespace QuanLyKhachSan
             this.lblCustomerCode.TabIndex = 0;
             this.lblCustomerCode.Text = "Mã KH:";
             // 
+            // grpSearch
+            // 
+            this.grpSearch.Controls.Add(this.btnSearchCustomer);
+            this.grpSearch.Controls.Add(this.txtSearchCustomer);
+            this.grpSearch.Controls.Add(this.lblSearchKeyword);
+            this.grpSearch.Dock = System.Windows.Forms.DockStyle.Top;
+            this.grpSearch.Location = new System.Drawing.Point(0, 98);
+            this.grpSearch.Name = "grpSearch";
+            this.grpSearch.Size = new System.Drawing.Size(970, 60);
+            this.grpSearch.TabIndex = 3;
+            this.grpSearch.TabStop = false;
+            this.grpSearch.Text = "Tìm kiếm";
+            // 
+            // btnSearchCustomer
+            // 
+            this.btnSearchCustomer.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(150)))), ((int)(((byte)(136)))));
+            this.btnSearchCustomer.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSearchCustomer.ForeColor = System.Drawing.Color.White;
+            this.btnSearchCustomer.Location = new System.Drawing.Point(380, 22);
+            this.btnSearchCustomer.Name = "btnSearchCustomer";
+            this.btnSearchCustomer.Size = new System.Drawing.Size(80, 25);
+            this.btnSearchCustomer.TabIndex = 2;
+            this.btnSearchCustomer.Text = "Tìm kiếm";
+            this.btnSearchCustomer.UseVisualStyleBackColor = false;
+            this.btnSearchCustomer.Click += new System.EventHandler(this.btnSearchCustomer_Click);
+            // 
+            // txtSearchCustomer
+            // 
+            this.txtSearchCustomer.Location = new System.Drawing.Point(100, 24);
+            this.txtSearchCustomer.Name = "txtSearchCustomer";
+            this.txtSearchCustomer.Size = new System.Drawing.Size(250, 20);
+            this.txtSearchCustomer.TabIndex = 1;
+            // 
+            // lblSearchKeyword
+            // 
+            this.lblSearchKeyword.AutoSize = true;
+            this.lblSearchKeyword.Location = new System.Drawing.Point(20, 27);
+            this.lblSearchKeyword.Name = "lblSearchKeyword";
+            this.lblSearchKeyword.Size = new System.Drawing.Size(53, 13);
+            this.lblSearchKeyword.TabIndex = 0;
+            this.lblSearchKeyword.Text = "Từ khóa:";
+            // 
             // CustomerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dgvCustomers);
+            this.Controls.Add(this.grpSearch);
             this.Controls.Add(this.panelCustomerButtons);
             this.Controls.Add(this.grpCustomerInfo);
             this.Name = "CustomerForm";
@@ -224,6 +272,8 @@ namespace QuanLyKhachSan
             ((System.ComponentModel.ISupportInitialize)(this.dgvCustomers)).EndInit();
             this.grpCustomerInfo.ResumeLayout(false);
             this.grpCustomerInfo.PerformLayout();
+            this.grpSearch.ResumeLayout(false);
+            this.grpSearch.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -237,6 +287,10 @@ namespace QuanLyKhachSan
         private System.Windows.Forms.Button btnAddCustomer;
         private System.Windows.Forms.DataGridView dgvCustomers;
         private System.Windows.Forms.GroupBox grpCustomerInfo;
+        private System.Windows.Forms.GroupBox grpSearch;
+        private System.Windows.Forms.Button btnSearchCustomer;
+        private System.Windows.Forms.TextBox txtSearchCustomer;
+        private System.Windows.Forms.Label lblSearchKeyword;
         private System.Windows.Forms.TextBox txtCMND;
         private System.Windows.Forms.TextBox txtPhone;
         private System.Windows.Forms.TextBox txtCustomerName;
