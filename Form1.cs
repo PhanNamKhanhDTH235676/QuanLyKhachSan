@@ -14,7 +14,7 @@ namespace QuanLyKhachSan
     public partial class Form1 : Form
     {
         // Chuỗi kết nối SQL Server
-        private string connectionString = "Server=localhost;Database=QuanLyKhachSan;User Id=sa;Password=123;";
+        private string connectionString = "Server=localhost;Database=QuanLyKhachSan2;User Id=sa;Password=123;";
         private SqlConnection conn;
 
         // Biến lưu thông tin nhân viên đăng nhập

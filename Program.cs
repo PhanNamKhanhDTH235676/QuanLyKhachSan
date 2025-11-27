@@ -16,7 +16,18 @@ namespace QuanLyKhachSan
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            
+            // Khởi tạo database
+            DatabaseHelper dbHelper = new DatabaseHelper();
+            try
+            {
+                dbHelper.InitializeDatabase();
+                Application.Run(new MainForm());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khởi tạo database: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
